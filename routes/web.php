@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\Home\HomeGetController;
 use App\Http\Controllers\Frontend\Course\CourseListGetController;
 use App\Http\Controllers\Frontend\Payment\PaymentGetController;
+use App\Http\Controllers\Frontend\Payment\PaymentPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,4 @@ Route::get('/', function () {
 Route::get('/',  HomeGetController::class);
 Route::get('/course/{course_id}',  CourseListGetController::class);
 Route::get('/payment/{course_id}',  PaymentGetController::class);
+Route::post('/payment',  PaymentPostController::class);

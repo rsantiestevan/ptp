@@ -5,6 +5,7 @@ namespace Paycomet\Backoffice\User\Domain;
 
 final class User
 {
+    private $id;
     private $name;
     private $email;
     private $emailVerifiedDate;
@@ -12,18 +13,23 @@ final class User
     private $rememberToken;
 
     public function __construct(
+        UserId $id,
         UserName $name,
         UserEmail $email,
-        UserEmailVerifiedDate $emailVerifiedDate,
         UserPassword $password,
         UserRememberToken $rememberToken
     )
     {
+        $this->id                = $id;
         $this->name              = $name;
         $this->email             = $email;
-        $this->emailVerifiedDate = $emailVerifiedDate;
         $this->password          = $password;
         $this->rememberToken     = $rememberToken;
+    }
+
+    public function id(): UserId
+    {
+        return $this->id;
     }
 
     public function name(): UserName
@@ -52,14 +58,14 @@ final class User
     }
 
     public static function create(
+        UserId $id,
         UserName $name,
         UserEmail $email,
-        UserEmailVerifiedDate $emailVerifiedDate,
         UserPassword $password,
         UserRememberToken $rememberToken
     ): User
     {
-        $user = new self($name, $email, $emailVerifiedDate, $password, $rememberToken);
+        $user = new self($id, $name, $email, $password, $rememberToken);
 
         return $user;
     }

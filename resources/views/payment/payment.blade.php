@@ -9,7 +9,8 @@
             <a class="nav-link" id="step2-tab" data-toggle="tab" href="#step2" role="tab" aria-controls="step2" aria-selected="false">Step2</a>
         </li>
     </ul>
-    <form>
+    <form method="POST" action="/payment">
+        @csrf
         <div class="tab-content" id="stepsTabContent">
             <div class="tab-pane fade show active" id="step1" role="tabpanel" aria-labelledby="step1-tab">
                 <div class="form-subtitle">1. {{ $courseName }}</div>
@@ -17,7 +18,11 @@
                     <div class="inline-el">
                         <div class="rad-with-details">
                             <input type="radio" id="rad1" name="rad" required checked><label for="rad1"></label>
-                            <div class="more-info">$ {{ $coursePrice }}</div>
+                            <div class="more-info">EU {{ $coursePrice }}</div>
+                            <input type="hidden" name="price" value="{{ $coursePrice }}" />
+                            <input type="hidden" name="quantity" value="1" />
+                            <input type="hidden" name="currency" value="EU" />
+                            <input type="hidden" name="course_id" value="{{ $courseId }}" />
                         </div>
                     </div>
                 </div>
@@ -25,17 +30,17 @@
                 <div class="form-subtitle">2. Enter payment details</div>
                 <label>Card number</label>
                 <div class="input-with-ccicon">
-                    <input type="text" class="form-control input-credit-card" placeholder="1234 1234 1234 1234" required>
+                    <input type="text" name="card_number" class="form-control input-credit-card" placeholder="1234 1234 1234 1234" required>
                     <i id="ccicon"></i>
                 </div>
                 <div class="inline-el-holder">
                     <div class="inline-el">
                         <label>Expiry date</label>
-                        <input type="text" class="form-control sm-content" placeholder="MM/YY" required>
+                        <input type="text" name="card_expiry" class="form-control sm-content" placeholder="MM/YY" required>
                     </div>
                     <div class="inline-el">
                         <label>CVV</label>
-                        <input type="text" class="form-control sm-content" placeholder="123" required>
+                        <input type="text" name="card_cvv" class="form-control sm-content" placeholder="123" required>
                     </div>
                 </div>
                 <!--
@@ -56,9 +61,9 @@
             </div>
             <div class="tab-pane fade" id="step2" role="tabpanel" aria-labelledby="step2-tab">
                 <div class="form-subtitle">3. Confirm your personal information</div>
-                <input type="text" class="form-control" placeholder="Full name">
-                <input type="text" class="form-control" placeholder="Email address">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="text" name="user_name" class="form-control" placeholder="Full name" required>
+                <input type="text" name="user_email" class="form-control" placeholder="Email address" required>
+                <input type="password" name="user_password" class="form-control" placeholder="Password" required>
                 <div class="form-button">
                     <button id="submit" type="submit" class="ibtn">Process payment</button>
                 </div>

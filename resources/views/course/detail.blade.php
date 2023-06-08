@@ -14,7 +14,7 @@
     <p class="events__body__item__body__copy">
         {{ $courseDetail }}
     </p>
-    <a class="ibtn" href="/pay/{{ $courseId }}">Pay Now</a>
+    <a class="ibtn" href="/payment/{{ $courseId }}">Pay Now</a>
 </div>
 
 @endsection

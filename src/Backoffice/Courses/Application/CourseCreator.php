@@ -22,13 +22,13 @@ final class CourseCreator
         string $price,
     )
     {
-        $id     = new CourseId($id);
-        $name   = new CourseName($name);
-        $detail = new CourseDetail($detail);
-        $image  = new CourseImage($image);
-        $price   = new CoursePrice($price);
-
-        $course = Course::create($id, $name, $detail, $image, $price);
+        $course = Course::create(
+            CourseId::random(),
+            new CourseName($name),
+            new CourseDetail($detail),
+            new CourseImage($image),
+            new CoursePrice($price)
+        );
         $this->repository->save($course);
 
     }

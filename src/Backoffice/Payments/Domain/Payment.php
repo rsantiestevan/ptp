@@ -3,12 +3,6 @@ declare(strict_types=1);
 
 namespace Paycomet\Backoffice\Payments\Domain;
 
-use Paycomet\Backoffice\Courses\Domain\CourseDetail;
-use Paycomet\Backoffice\Courses\Domain\CourseId;
-use Paycomet\Backoffice\Courses\Domain\CourseImage;
-use Paycomet\Backoffice\Courses\Domain\CourseName;
-use Paycomet\Backoffice\Courses\Domain\CoursePrice;
-
 final class Payment
 {
     private $id;
@@ -16,13 +10,17 @@ final class Payment
     private $quantity;
     private $amount;
     private $currency;
+    private $courseId;
+    private $userId;
 
     public function __construct(
         PaymentId $id,
         PaymentMethod $paymentMethod,
         PaymentQuantity $quantity,
         PaymentAmount $amount,
-        PaymentCurrency $currency
+        PaymentCurrency $currency,
+        PaymentCourseId $courseId,
+        PaymentUserId $userId
     )
     {
         $this->id = $id;
@@ -30,6 +28,8 @@ final class Payment
         $this->quantity = $quantity;
         $this->amount = $amount;
         $this->currency = $currency;
+        $this->courseId = $courseId;
+        $this->userId = $userId;
     }
 
     public static function create(
@@ -37,11 +37,12 @@ final class Payment
         PaymentMethod $paymentMethod,
         PaymentQuantity $quantity,
         PaymentAmount $amount,
-        PaymentCurrency $currency
+        PaymentCurrency $currency,
+        PaymentCourseId $courseId,
+        PaymentUserId $userId
     ): self
     {
-        $payment = new self($id, $paymentMethod, $quantity, $amount, $currency);
-        return $payment;
+        return new self($id, $paymentMethod, $quantity, $amount, $currency, $courseId, $userId);
     }
 
     public function id(): PaymentId
@@ -49,7 +50,7 @@ final class Payment
         return $this->id;
     }
 
-    public function name(): PaymentMethod
+    public function paymentMethod(): PaymentMethod
     {
         return $this->paymentMethod;
     }
@@ -67,5 +68,15 @@ final class Payment
     public function currency(): PaymentCurrency
     {
         return $this->currency;
+    }
+
+    public function courseId(): PaymentCourseId
+    {
+        return $this->courseId;
+    }
+
+    public function userId(): PaymentUserId
+    {
+        return $this->userId;
     }
 }
