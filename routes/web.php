@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Frontend\Home\HomeGetController;
+use App\Http\Controllers\Frontend\Course\CourseListGetController;
+use App\Http\Controllers\Frontend\Payment\PaymentGetController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+/*
 Route::get('/', function () {
-    return view('welcome');
+    #return view('welcome');
+    return view('payment');
 });
+*/
+Route::get('/',  HomeGetController::class);
+Route::get('/course/{course_id}',  CourseListGetController::class);
+Route::get('/payment/{course_id}',  PaymentGetController::class);
