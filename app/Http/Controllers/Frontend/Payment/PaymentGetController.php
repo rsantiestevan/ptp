@@ -12,7 +12,7 @@ final class PaymentGetController extends \App\Http\Controllers\Controller
     public function __invoke(Request $request)
     {
         $payJetID       = env('PAY_JETID');
-        $courseSearch = new CourseSearch(new EloquentCourseRepository());
+        $courseSearch   = new CourseSearch(new EloquentCourseRepository());
         $course = $courseSearch($request->course_id);
         return view('payment.new', [
             'courseId' => $course->id()->value(),

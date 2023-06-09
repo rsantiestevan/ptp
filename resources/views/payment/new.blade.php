@@ -6,10 +6,10 @@
                 <p></p>
                 <p class="alert alert-success">Some text success or error</p>
 
-                <form role="form" id="paycometPaymentForm" action="/payment"  method="POST"
+                <form role="form" id="paycometPaymentForm" action="/payment"  method="POST">
                     @csrf
                     <input type="hidden" name="amount" value="1234">
-                    <input type="hidden" data-paycomet="jetID" value="{{ $payJetID }}">
+                    <input type="hidden" namet="jetID" data-paycomet="jetID" value="{{ $payJetID }}">
                     <div class="form-group">
                         <label for="username">Confirm your personal information</label>
                         <div class="input-group">

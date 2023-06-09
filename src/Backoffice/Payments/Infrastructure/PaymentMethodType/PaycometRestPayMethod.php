@@ -4,10 +4,21 @@ declare(strict_types=1);
 namespace Paycomet\Backoffice\Payments\Infrastructure\PaymentMethodType;
 
 use Paycomet\Backoffice\Payments\Domain\Payment;
+use Paycomet\Backoffice\Payments\Domain\PayMethodType;
 
-final class PaycometRestPayMethod implements \Paycomet\Backoffice\Payments\Domain\PayMethodType
+final class PaycometRestPayMethod implements PayMethodType
 {
-    public function __construct(string $token)
+    private $username;
+    private $pan;
+    private $dateMonth;
+    private $dateYear;
+    private $cvc2;
+
+    public function __construct(string $token, string $username, string $pan,
+        string $dateMonth,
+        string $dateYear,
+        string $cvc2
+    )
     {
         $this->payJetID             = env('PAY_JETID');
         $this->payMerchantCode      = env('PAY_MERCHANTCODE');
@@ -22,33 +33,40 @@ final class PaycometRestPayMethod implements \Paycomet\Backoffice\Payments\Domai
         $this->owner                = "XML_BANKSTORE TEST owner";
         $this->ip                   = $_SERVER["REMOTE_ADDR"];
         $this->order = "MERCHANTORDER-" . date("Y/m/d h:I:s");
+        $this->username = $username;
+        $this->pan = $pan;
+        $this->dateMonth = $dateMonth;
+        $this->dateYear = $dateYear;
+        $this->cvc2 = $cvc2;
     }
-    public function process(Payment $payment): boolean
+    public function process(Payment $payment): bool
     {
         $headers = ['headers' => ['PAYCOMET-API-TOKEN' => $this->payApiKey]];
         $client = new \GuzzleHttp\Client($headers);
-        $myBody['name'] = "Demo";
-        $request = $client->post(
-            $this->endPoint,  [ 'body'=>$this->getBody($payment) ]);
+        $options = [
+            'debug' => true,
+            'form_params' => $this->getBody($payment),
+        ];
+        $request = $client->post($this->endPoint, $options);
         $request->addHeader('','');
         $response = $request->send();
 
-        dd($response);
+        var_dump($response);
     }
 
-    private function getBody(Paymen $payment): array
+    private function getBody(Payment $payment): array
     {
         $datos['terminal'] = $this->payTerminal;
-        $datos['cvc2'] = '';
+        $datos['cvc2'] = $this->cvc2;
         $datos['jetToken'] = $this->token;
-        $datos['expiryYear'] = '';
-        $datos['expiryMonth'] = '';
-        $datos['pan'] = '';
+        $datos['expiryYear'] = $this->dateYear;
+        $datos['expiryMonth'] = $this->dateMonth;
+        $datos['pan'] = $this->pan;
         $datos['order'] = $this->order;
         $datos['productDescription'] = '';
         $datos['language'] = 'es';
         $datos['notify'] = '2';
-        $datos['cardHolderName'] = '';
+        $datos['cardHolderName'] = $this->username;
         $datos['secureAuthentication'] = [
             'CAVV' => '',
             'TXID' => '',
@@ -59,5 +77,6 @@ final class PaycometRestPayMethod implements \Paycomet\Backoffice\Payments\Domai
             'threeDSVersion' => '',
             'authenticationFlow' => '',
         ];
+        return $datos;
     }
 }

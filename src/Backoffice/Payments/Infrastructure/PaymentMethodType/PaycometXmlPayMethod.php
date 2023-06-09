@@ -33,7 +33,7 @@ final class PaycometXmlPayMethod implements PayMethodType
         $this->order                = "MERCHANTORDER-" . date("Y/m/d h:I:s");
     }
 
-    public function process(Payment $payment): boolean
+    public function process(Payment $payment): bool
     {
         date_default_timezone_set("Europe/Madrid");
         $token = $this->token;
@@ -68,7 +68,7 @@ final class PaycometXmlPayMethod implements PayMethodType
                 $this->ip
             );
 
-            if ($addUserTokenResponse["DS_ERROR_ID"] 1= "0") {
+            if ($addUserTokenResponse["DS_ERROR_ID"] != "0") {
                 var_dump("Error al obtener el token");
                 var_dump($addUserTokenResponse["DS_ERROR_ID"]);
                 return false;
@@ -118,5 +118,6 @@ final class PaycometXmlPayMethod implements PayMethodType
         } catch(Exception $e){
             var_dump($e);
         }
+        return false;
     }
 }

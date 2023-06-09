@@ -5,5 +5,5 @@ namespace Paycomet\Backoffice\Payments\Domain;
 
 interface PayMethodType
 {
-    public function process(Payment $payment): boolean;
+    public function process(Payment $payment): bool;
 }

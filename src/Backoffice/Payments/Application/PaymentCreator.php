@@ -23,26 +23,8 @@ final class PaymentCreator
         $this->repository = $repository;
     }
 
-    public function __invoke(
-        string $paymentMethod,
-        string $quantity,
-        string $amount,
-        string $currency,
-        string $courseId,
-        string $userId
-    )
+    public function __invoke(Payment $payment)
     {
-        $uuid = PaymentId::random();
-        $payment = Payment::create(
-            new PaymentId($uuid->value()),
-            new PaymentMethod($paymentMethod),
-            new PaymentQuantity($quantity),
-            new PaymentAmount($amount),
-            new PaymentCurrency($currency),
-            new PaymentCourseId($courseId),
-            new PaymentUserId($userId)
-        );
-
         $this->repository->save($payment);
     }
 
