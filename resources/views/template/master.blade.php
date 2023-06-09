@@ -40,22 +40,6 @@
 <script src="/js/cleave.min.js"></script>
 <script src="/js/main.js"></script>
 
-<script>
-    // credit card
-    var cleaveCreditCard = new Cleave(".input-credit-card", {
-        creditCard: true,
-        onCreditCardTypeChanged: function(type) {
-            type = type.split("15")[0];
-            $('.input-with-ccicon #ccicon').removeClass();
-            if(type!="unknown"){
-                if(type=="diners"){
-                    $('.input-with-ccicon #ccicon').addClass('fab fa-cc-diners-club');
-                }else{
-                    $('.input-with-ccicon #ccicon').addClass('fab fa-cc-'+type);
-                }
-            }
-        }
-    });
-</script>
+@yield('script-content')
 </body>
 </html>

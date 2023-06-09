@@ -14,6 +14,7 @@ final class PaymentPostController extends \App\Http\Controllers\Controller
 
     public function __invoke(Request $request)
     {
+        dd($request);
         $userFindOrCreate = new UserFindOrCreate(new EloquentUserRepository());
         $user = $userFindOrCreate($request->user_name, $request->user_email, $request->user_password);
         $paymentMethod = 'N/A';
