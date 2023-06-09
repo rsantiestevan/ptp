@@ -47,4 +47,9 @@ final class EloquentCourseRepository implements CourseRepository
             new CoursePrice($course->price),
         );
     }
+
+    public function searchAll(): array
+    {
+        return $this->eloquentCourseModel->all()->toArray();
+    }
 }

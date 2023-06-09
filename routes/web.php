@@ -24,6 +24,6 @@ Route::get('/', function () {
 });
 */
 Route::get('/',  HomeGetController::class);
-Route::get('/course/{course_id}',  CourseListGetController::class);
+Route::get('/courses',  CourseListGetController::class);
 Route::get('/payment/{course_id}',  PaymentGetController::class);
 Route::post('/payment',  PaymentPostController::class);

@@ -56,7 +56,7 @@
                         <div class="form-group">
                             <label><span class="hidden-xs">Expiration</span> </label>
                             <div class="form-inline">
-                                <select class="form-control" style="width:45%" data-paycomet="dateMonth">
+                                <select class="form-control" style="width:45%" name="dateMonth" data-paycomet="dateMonth">
                                     <option>MM</option>
                                     <option value="01">01 - January</option>
                                     <option value="02">02 - February</option>
@@ -72,7 +72,7 @@
                                     <option value="12">12 - December</option>
                                 </select>
                                 <span style="width:10%; text-align: center"> / </span>
-                                <select class="form-control" style="width:45%" data-paycomet="dateYear">
+                                <select class="form-control" style="width:45%" name="dateYear" data-paycomet="dateYear">
                                     <option>YY</option>
                                     <option value="23">2023</option>
                                     <option value="24">2024</option>
